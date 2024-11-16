@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerActions : MonoBehaviour
 {
     private PlayerStats playerStats;
     
@@ -12,20 +12,46 @@ public class PlayerMovement : MonoBehaviour
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
 
-    private Rigidbody rigidbody;
     private float playerHeight = 1.4f;
     private float playerRadius = 0.49f;
 
     private bool isWalking;
+    
+    private Vector3 lastInteractDirection;
+    private Plant selectedPlant;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
         playerStats = GetComponent<PlayerStats>();
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
+    }
+
+    void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    {
+        if (selectedPlant != null)
+        {
+            selectedPlant.Interact();
+        }
     }
     
     void Update()
     {
+        Movement();
+        Interact();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+    }
+
+    void Movement()
+    { 
         float moveDistance = playerStats.moveSpeed * Time.deltaTime;
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y); // as input is detected on vector2, converting to vector3 to make sure the up keys don't make the player start flying
@@ -68,18 +94,41 @@ public class PlayerMovement : MonoBehaviour
             //rigidbody.AddForce(moveDirection * playerStats.moveSpeed);
             transform.position += moveDirection * moveDistance;
         }
-        isWalking = moveDirection != Vector3.zero;
+        isWalking = moveDirection != Vector3.zero; // if move direction does not = zero, is walking is true
 
         transform.forward = Vector3.Slerp(transform.forward, moveDirection, rotateSpeed * Time.deltaTime); // makes the player look where they are moving
     }
 
-    public bool IsWalking()
+    void Interact()
     {
-        return isWalking;
-    }
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
 
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision.gameObject.name);
+        if (moveDirection != Vector3.zero)
+        {
+            lastInteractDirection = moveDirection;
+        }
+
+        float interactDistance = 1f;
+
+        if (Physics.Raycast(transform.position, lastInteractDirection, out RaycastHit raycastHit, interactDistance))
+        {
+            if (raycastHit.transform.TryGetComponent(out Plant plant))
+            {
+                if (plant != selectedPlant)
+                {
+                    selectedPlant = plant;
+                }
+            }
+            else
+            {
+                selectedPlant = null;
+            }
+        }
+        else
+        {
+            selectedPlant = null;
+        }
+        Debug.Log(selectedPlant);
     }
 }
