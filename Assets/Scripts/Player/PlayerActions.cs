@@ -1,9 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
+    public static PlayerActions Instance{ get; private set; }
+    public event EventHandler<OnSelectedPlantChangedEventArgs> OnSelectedPlantChanged;
+
+    public class OnSelectedPlantChangedEventArgs : EventArgs
+    {
+        public Plant selectedPlant;
+    }
+    
     private PlayerStats playerStats;
     
     [Header("Speeds")]
@@ -20,6 +29,14 @@ public class PlayerActions : MonoBehaviour
     private Vector3 lastInteractDirection;
     private Plant selectedPlant;
 
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("More than one instance of PlayerActions found!");
+        }
+        Instance = this;
+    }
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -115,20 +132,29 @@ public class PlayerActions : MonoBehaviour
         {
             if (raycastHit.transform.TryGetComponent(out Plant plant))
             {
+                // Debug.Log(raycastHit.transform.gameObject.name);
+                // has plant
                 if (plant != selectedPlant)
                 {
-                    selectedPlant = plant;
+                    SetSelectedPlant(plant);
                 }
             }
             else
             {
-                selectedPlant = null;
+                SetSelectedPlant(null);
             }
         }
         else
         {
-            selectedPlant = null;
+            SetSelectedPlant(null);
         }
-        Debug.Log(selectedPlant);
+        
+    }
+
+    void SetSelectedPlant(Plant selectedPlant)
+    {
+        this.selectedPlant = selectedPlant;
+        
+        OnSelectedPlantChanged?.Invoke(this, new OnSelectedPlantChangedEventArgs { selectedPlant = selectedPlant });
     }
 }
