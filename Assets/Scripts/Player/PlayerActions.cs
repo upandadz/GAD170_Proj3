@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
     public static PlayerActions Instance{ get; private set; }
-    public event EventHandler<OnSelectedPlantChangedEventArgs> OnSelectedPlantChanged;
+    public event EventHandler<OnSelectedPlantPotChangedEventArgs> OnSelectedPlantPotChanged;
 
-    public class OnSelectedPlantChangedEventArgs : EventArgs
+    public class OnSelectedPlantPotChangedEventArgs : EventArgs
     {
-        public Plant selectedPlant;
+        public PlantPot SelectedPlantPot;
     }
     
     private PlayerStats playerStats;
@@ -27,7 +27,7 @@ public class PlayerActions : MonoBehaviour
     private bool isWalking;
     
     private Vector3 lastInteractDirection;
-    private Plant selectedPlant;
+    private PlantPot selectedPlantPot;
 
     void Awake()
     {
@@ -45,9 +45,9 @@ public class PlayerActions : MonoBehaviour
 
     void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
-        if (selectedPlant != null)
+        if (selectedPlantPot != null)
         {
-            selectedPlant.Interact();
+            selectedPlantPot.Interact();
         }
     }
     
@@ -130,13 +130,13 @@ public class PlayerActions : MonoBehaviour
 
         if (Physics.Raycast(transform.position, lastInteractDirection, out RaycastHit raycastHit, interactDistance))
         {
-            if (raycastHit.transform.TryGetComponent(out Plant plant))
+            if (raycastHit.transform.TryGetComponent(out PlantPot plantPot))
             {
                 // Debug.Log(raycastHit.transform.gameObject.name);
                 // has plant
-                if (plant != selectedPlant)
+                if (plantPot != selectedPlantPot)
                 {
-                    SetSelectedPlant(plant);
+                    SetSelectedPlant(plantPot);
                 }
             }
             else
@@ -151,10 +151,10 @@ public class PlayerActions : MonoBehaviour
         
     }
 
-    void SetSelectedPlant(Plant selectedPlant)
+    void SetSelectedPlant(PlantPot selectedPlantPot)
     {
-        this.selectedPlant = selectedPlant;
+        this.selectedPlantPot = selectedPlantPot;
         
-        OnSelectedPlantChanged?.Invoke(this, new OnSelectedPlantChangedEventArgs { selectedPlant = selectedPlant });
+        OnSelectedPlantPotChanged?.Invoke(this, new OnSelectedPlantPotChangedEventArgs { SelectedPlantPot = selectedPlantPot });
     }
 }
