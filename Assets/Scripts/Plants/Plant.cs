@@ -7,5 +7,6 @@ public class Plant : MonoBehaviour
     public void Interact()
     {
         Debug.Log("Interact");
+        
     }
 }

@@ -19,7 +19,7 @@ public class SelectedPlantVisual : MonoBehaviour
     {
         if (e.selectedPlant == plant)
         {
-            Show(); // currently not activating
+            Show(); 
         }
         else
         {

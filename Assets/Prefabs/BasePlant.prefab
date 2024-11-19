@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -7945259275373163525}
   - component: {fileID: 8790776628663730148}
   m_Layer: 6
-  m_Name: Plant
+  m_Name: BasePlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
