@@ -14,9 +14,7 @@ public class PlayerActions : MonoBehaviour
     }
     
     private PlayerStats playerStats;
-    
-    [Header("Speeds")]
-    [SerializeField] private float rotateSpeed = 10f;
+    [SerializeField] private Transform mushroomHoldPoint;
     
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
@@ -24,7 +22,10 @@ public class PlayerActions : MonoBehaviour
     private float playerHeight = 1.4f;
     private float playerRadius = 0.49f;
 
+    private float rotateSpeed = 10f;
     private bool isWalking;
+
+    public bool holdingObject = false;
     
     private Vector3 lastInteractDirection;
     private PlantPot selectedPlantPot;
@@ -126,7 +127,7 @@ public class PlayerActions : MonoBehaviour
             lastInteractDirection = moveDirection;
         }
 
-        float interactDistance = 1f;
+        float interactDistance = 1.5f;
 
         if (Physics.Raycast(transform.position, lastInteractDirection, out RaycastHit raycastHit, interactDistance))
         {
