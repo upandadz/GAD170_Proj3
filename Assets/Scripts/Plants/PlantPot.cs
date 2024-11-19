@@ -23,7 +23,6 @@ public class PlantPot : MonoBehaviour
     {
         Debug.Log("Interact");
         // if pot plant has mushroom on top, maybe use raycast up . raycast hit . get component
-        //RaycastHit hit;
         Physics.Raycast(transform.position, transform.up, out RaycastHit hit, Mathf.Infinity);
         if (hit.collider != null && hit.collider.tag == "Mushroom")
         {
