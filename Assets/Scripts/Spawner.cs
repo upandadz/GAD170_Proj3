@@ -7,19 +7,24 @@ public class Spawner : MonoBehaviour
     public Prefabs prefabs;
     public List<Transform> potSpawnPoints;
     public List<Transform> thornSpawnPoints;
-    private float potHeight = 0.5f;
 
     private int howManyPots = 4;
+    private int howManyThorns = 4;
     void Start()
+    {
+        Spawn();
+    }
+
+    public void Spawn()
     {
         for (int i = 0; i < howManyPots; i++)
         {
             Instantiate(prefabs.plantPot, potSpawnPoints[Random.Range(0, potSpawnPoints.Count)].position, Quaternion.identity);
         }
 
-        for (int i = 0; i < thornSpawnPoints.Count; i++)
+        for (int i = 0; i < howManyThorns; i++)
         {
-            Instantiate(prefabs.thorns, thornSpawnPoints[i].position, Quaternion.identity);
+            Instantiate(prefabs.thorns, thornSpawnPoints[Random.Range(0, thornSpawnPoints.Count)].position, Quaternion.identity);
         }
     }
 }

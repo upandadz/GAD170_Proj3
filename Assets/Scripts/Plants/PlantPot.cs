@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,10 +24,13 @@ public class PlantPot : MonoBehaviour
     {
         Debug.Log("Interact");
         // if pot plant has mushroom on top, maybe use raycast up . raycast hit . get component
-        Physics.Raycast(transform.position, transform.up, out RaycastHit hit, Mathf.Infinity);
+        float raycastDistance = 2f;
+        Physics.Raycast(transform.position, transform.up, out RaycastHit hit, raycastDistance);
         if (hit.collider != null && hit.collider.tag == "Mushroom")
         {
-            hit.collider.gameObject.SetActive(false);
+            GameObject mushroomHit = hit.collider.gameObject;
+            // if player has no item then...
+            mushroomHit.GetComponent<Mushroom>().Pickup();
         }
     }
 }

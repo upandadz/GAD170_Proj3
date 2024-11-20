@@ -12,10 +12,10 @@ public class SelectedPlantPotVisual : MonoBehaviour
     {
         plantPot = GetComponent<PlantPot>();
         selectedVisual = transform.GetChild(1).gameObject;
-        PlayerActions.Instance.OnSelectedPlantPotChanged += PlayerActionsOnSelectedPlantPotPotChanged;
+        Player.Instance.OnSelectedPlantPotChanged += PlayerActionsOnSelectedPlantPotPotChanged;
     }
 
-    void PlayerActionsOnSelectedPlantPotPotChanged(object sender, PlayerActions.OnSelectedPlantPotChangedEventArgs e)
+    void PlayerActionsOnSelectedPlantPotPotChanged(object sender, Player.OnSelectedPlantPotChangedEventArgs e)
     {
         if (e.SelectedPlantPot == plantPot)
         {
