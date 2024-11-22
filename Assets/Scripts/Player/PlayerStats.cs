@@ -9,13 +9,21 @@ public class PlayerStats : MonoBehaviour
     public float fragility = 100f;
 
     private float fragilityDivider = 50f;
+    
+    
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
     public void DamagePlayer(float damage)
     {
         damage *= fragility / fragilityDivider;
         health -= damage;
         if (health <= 0)
         {
-            // call end game funciton
+            gameManager.PlayerDied();
         }
     }
 }

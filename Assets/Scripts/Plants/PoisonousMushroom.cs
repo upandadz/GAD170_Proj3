@@ -19,10 +19,10 @@ public class PoisonousMushroom : MonoBehaviour
     {
         if (mushroom.pickedUp)
         {
-           // playerMaterial.color = new Color();
+           // playerMaterial.color = Color.Lerp(playerMaterial.color, Color.green, Mathf.PingPong(Time.time, 1));
             if (!damaging)
             {
-                StartCoroutine(PoisonDamage()); // only triggering once
+                StartCoroutine(PoisonDamage());
             }
         }
     }
@@ -30,9 +30,9 @@ public class PoisonousMushroom : MonoBehaviour
     private IEnumerator PoisonDamage()
     {
         damaging = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         mushroom.playerStats.DamagePlayer(2f);
-        Instantiate(prefabs.poisonSplatter, gameObject.GetComponentInParent<Transform>().position, transform.rotation); // not working
+        Instantiate(prefabs.poisonSplatter, gameObject.GetComponentInParent<Transform>().position, transform.rotation);
         damaging = false;
     }
 }

@@ -19,16 +19,18 @@ public class Player : MonoBehaviour
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
 
+    private Rigidbody rb;
     private float playerHeight = 1.4f;
     private float playerRadius = 0.49f;
 
     private float rotateSpeed = 10f;
     private bool isWalking;
+    public bool frozen = false;
 
     public bool holdingObject = false;
     
     private Vector3 lastInteractDirection;
-    private PlantPot selectedPlantPot;
+    public PlantPot selectedPlantPot;
 
     void Awake()
     {
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        rb = GetComponent<Rigidbody>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
@@ -58,8 +61,12 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        Movement();
-        Interact();
+        if (!frozen)
+        {
+            Movement();
+            Interact();
+            BodySlam();
+        }
     }
 
     public bool IsWalking()
@@ -161,5 +168,13 @@ public class Player : MonoBehaviour
         this.selectedPlantPot = selectedPlantPot;
         
         OnSelectedPlantPotChanged?.Invoke(this, new OnSelectedPlantPotChangedEventArgs { SelectedPlantPot = selectedPlantPot });
+    }
+
+    void BodySlam()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            rb.AddForce(100f * lastInteractDirection, ForceMode.Impulse);
+        }
     }
 }
