@@ -9,8 +9,7 @@ public class MushroomValue
     public bool isRare = Random.Range(0, 5) == 0;
 
     public MushroomValue(int value)
-    {
-        isRare = isRare;
+    { 
         mushroomValue = value;
         if (isRare)
         {

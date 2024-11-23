@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     
     private PlayerStats playerStats;
     [SerializeField] private Transform mushroomHoldPoint;
+    [SerializeField] private Transform pushPoint;
+    [SerializeField] private GameObject push;
     
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
         {
             Movement();
             Interact();
-            BodySlam();
+            Push();
         }
     }
 
@@ -144,7 +146,6 @@ public class Player : MonoBehaviour
         {
             if (raycastHit.transform.TryGetComponent(out PlantPot plantPot))
             {
-                // Debug.Log(raycastHit.transform.gameObject.name);
                 // has plant
                 if (plantPot != selectedPlantPot)
                 {
@@ -154,6 +155,11 @@ public class Player : MonoBehaviour
             else
             {
                 SetSelectedPlant(null);
+            }
+            // trying to pick up angered mushrooms
+            if (raycastHit.transform.TryGetComponent(out Mushroom mushroom))
+            {
+                
             }
         }
         else
@@ -170,11 +176,11 @@ public class Player : MonoBehaviour
         OnSelectedPlantPotChanged?.Invoke(this, new OnSelectedPlantPotChangedEventArgs { SelectedPlantPot = selectedPlantPot });
     }
 
-    void BodySlam()
+    void Push()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            rb.AddForce(100f * lastInteractDirection, ForceMode.Impulse);
+            Instantiate(push, pushPoint.position, Quaternion.identity);
         }
     }
 }

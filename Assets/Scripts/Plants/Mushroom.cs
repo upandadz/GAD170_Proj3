@@ -13,7 +13,7 @@ public class Mushroom : MonoBehaviour
     
     private MeshRenderer meshRenderer;
     [SerializeField] private Material rareMaterial;
-
+    
     void Start()
     {
         if (GetComponent<PoisonousMushroom>() != null)
@@ -53,5 +53,9 @@ public class Mushroom : MonoBehaviour
         dropPoint = player.selectedPlantPot.transform.GetChild(2);
         gameObject.transform.SetParent(dropPoint);
         gameObject.transform.position = dropPoint.position;
+        if (GetComponent<PoisonousMushroom>() != null)
+        {
+            GetComponent<PoisonousMushroom>().damaging = false;
+        }
     }
 }
