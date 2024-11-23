@@ -19,6 +19,7 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < howManyPots; i++)
         {
+            // want to check to see if something has already spawned there, maybe a raycast?
             Instantiate(prefabs.plantPot, potSpawnPoints[Random.Range(0, potSpawnPoints.Count)].position, Quaternion.identity);
         }
 
