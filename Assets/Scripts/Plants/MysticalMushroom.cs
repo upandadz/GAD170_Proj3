@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MysticalMushroom : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Mushroom mushroom;
+
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        mushroom = GetComponent<Mushroom>();
     }
 }

@@ -9,9 +9,30 @@ public class Mushroom : MonoBehaviour
     public Player player;
     public bool pickedUp = false;
     public PlayerStats playerStats;
+    public MushroomValue mushroomValue;
+    
+    private MeshRenderer meshRenderer;
+    [SerializeField] private Material rareMaterial;
 
     void Start()
     {
+        if (GetComponent<PoisonousMushroom>() != null)
+        {
+            mushroomValue = new MushroomValue(60);
+        }
+        else if (GetComponent<MysticalMushroom>() != null)
+        {
+            mushroomValue = new MushroomValue(40);
+        }
+        else if (GetComponent<AngryMushroom>() != null)
+        {
+            mushroomValue = new MushroomValue(50);
+        }
+        meshRenderer = GetComponent<MeshRenderer>();
+        if (mushroomValue.isRare)
+        {
+            meshRenderer.material = rareMaterial;
+        }
         pickupPoint = GameObject.Find("PickupPoint").transform; // wouldn't work for multiplayer obviously but here we are
         player = pickupPoint.parent.GetComponent<Player>();
     }
@@ -32,6 +53,5 @@ public class Mushroom : MonoBehaviour
         dropPoint = player.selectedPlantPot.transform.GetChild(2);
         gameObject.transform.SetParent(dropPoint);
         gameObject.transform.position = dropPoint.position;
-        
     }
 }

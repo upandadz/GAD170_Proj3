@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class AngryMushroom : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Mushroom mushroom;
+    private float timer;
+
+    private bool angered = false;
+    
+    public bool stunned = false;
+
     void Start()
     {
-        
+        mushroom = GetComponent<Mushroom>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (mushroom.pickedUp)
+        {
+            timer += Time.deltaTime;
+            // if timer goes above X
+            // hop off player transform
+            // begin animation
+            // angered = true
+            // start chasing player
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Thorns")
+        {
+            stunned = true;
+        }
     }
 }

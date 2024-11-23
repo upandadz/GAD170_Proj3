@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MushroomValues
+public class MushroomValue
 {
     public int mushroomValue;
     public bool isRare = Random.Range(0, 5) == 0;
 
-    public MushroomValues(int value)
+    public MushroomValue(int value)
     {
         isRare = isRare;
         mushroomValue = value;

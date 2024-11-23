@@ -136,3 +136,7 @@ MonoBehaviour:
   player: {fileID: 0}
   pickedUp: 0
   playerStats: {fileID: 0}
+  mushroomValue:
+    mushroomValue: 0
+    isRare: 0
+  rareMaterial: {fileID: 2100000, guid: 706dfccd73e7ba64e923c49cacec6a23, type: 2}
