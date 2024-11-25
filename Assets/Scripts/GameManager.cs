@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         // destroy spawned in pots & thorns
         // add value of collected mushrooms
         // take out $$ for medical bill
+        // show available funds
         // show upgrade stats ui - once stats are upgraded click button for round start
     }
 
