@@ -2039,7 +2039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 426007185}
   m_Layer: 0
-  m_Name: AttackPoint
+  m_Name: SprayPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5336,8 +5336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2404f833dedce6046aec9481ea43388c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomHoldPoint: {fileID: 426007185}
-  sprayPoint: {fileID: 0}
+  sprayPoint: {fileID: 426007185}
+  gasParticles: {fileID: 491854129061526122, guid: 60d331071ce16a94fba377c885312b2e, type: 3}
   gameInput: {fileID: 66474444}
   frozen: 0
   holdingObject: 0

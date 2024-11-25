@@ -23,18 +23,18 @@ public class AngryMushroom : MonoBehaviour
 
     void Update()
     {
-        if (angered)
+        if (angered && !stunned)
         {
             agent.SetDestination(mushroom.player.transform.position);
         }
     }
 
-    void OnPickup()
+    public void OnPickup()
     {
-        BeginAngered();
+        StartCoroutine(BeginAngered());
     }
 
-    private IEnumerable BeginAngered()
+    private IEnumerator BeginAngered()
     {
         yield return new WaitForSeconds(2f);
         gameObject.transform.SetParent(null);

@@ -37,6 +37,12 @@ public class Mushroom : MonoBehaviour
         }
         pickupPoint = GameObject.Find("PickupPoint").transform; // wouldn't work for multiplayer obviously but here we are
         player = pickupPoint.parent.GetComponent<Player>();
+        
+        if (GetComponent<AngryMushroom>() == null);
+        {
+            OnMushroomPickedUp.AddListener(GetComponent<AngryMushroom>().OnPickup);
+        }
+        
     }
     public void Pickup()
     {
@@ -45,6 +51,7 @@ public class Mushroom : MonoBehaviour
         
         gameObject.transform.SetParent(pickupPoint);
         gameObject.transform.position = pickupPoint.position;
+        OnMushroomPickedUp.Invoke();
     }
 
     public void Drop()
