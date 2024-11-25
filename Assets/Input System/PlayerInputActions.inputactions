@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Push",
+                    "name": "Spray",
                     "type": "Button",
                     "id": "51e8ee92-42cc-4e0f-9cdf-1b90b4521118",
                     "expectedControlType": "Button",
@@ -127,7 +127,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Push",
+                    "action": "Spray",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

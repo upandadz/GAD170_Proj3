@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
                 SetSelectedPlant(null);
             }
             // trying to pick up angered mushrooms
-            if (raycastHit.transform.TryGetComponent(out Mushroom mushroom))
+            if (raycastHit.transform.TryGetComponent(out AngryMushroom mushroom))
             {
                 
             }

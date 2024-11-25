@@ -8,6 +8,8 @@ public class Spawner : MonoBehaviour
     public List<Transform> potSpawnPoints;
     public List<Transform> thornSpawnPoints;
 
+    private List<int> usedSpawnPoints = new List<int>();
+
     private int howManyPots = 4;
     private int howManyThorns = 4;
     void Awake()
@@ -17,10 +19,19 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
+        usedSpawnPoints.Clear();
         for (int i = 0; i < howManyPots; i++)
         {
-            // want to check to see if something has already spawned there, maybe a raycast?
-            Instantiate(prefabs.plantPot, potSpawnPoints[Random.Range(0, potSpawnPoints.Count)].position, Quaternion.identity);
+            int spawnPosition = Random.Range(0, potSpawnPoints.Count);
+            if (usedSpawnPoints.Contains(spawnPosition))
+            {
+                i--; // makes sure the code can run again to check for another spawn point if already used
+            }
+            else
+            {
+                usedSpawnPoints.Add(spawnPosition);
+                Instantiate(prefabs.plantPot, potSpawnPoints[spawnPosition].position, Quaternion.identity);
+            }
         }
 
         for (int i = 0; i < howManyThorns; i++)

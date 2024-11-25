@@ -26,6 +26,7 @@ public class AngryMushroom : MonoBehaviour
         if (angered && !stunned)
         {
             agent.SetDestination(mushroom.player.transform.position);
+            gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         }
     }
 
@@ -40,5 +41,6 @@ public class AngryMushroom : MonoBehaviour
         gameObject.transform.SetParent(null);
         gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         angered = true;
+        agent.enabled = true;
     }
 }

@@ -17,6 +17,7 @@ public class Spray : MonoBehaviour
         if (other.tag == "Mushroom" && other.GetComponent<AngryMushroom>() != null)
         {
             other.gameObject.GetComponent<AngryMushroom>().stunned = true;
+            Debug.Log(other.gameObject.name);
         }
     }
 

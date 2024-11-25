@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
+    private Player player;
     public event EventHandler OnInteractAction;
     
     private PlayerInputActions playerInputActions;
@@ -14,6 +15,7 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
+       // playerInputActions.Player.Spray.performed += player.SprayGas();
     }
 
     void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
