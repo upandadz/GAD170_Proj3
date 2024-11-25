@@ -19,7 +19,6 @@ public class PoisonousMushroom : MonoBehaviour
     {
         if (mushroom.pickedUp)
         {
-           // playerMaterial.color = Color.Lerp(playerMaterial.color, Color.green, Mathf.PingPong(Time.time, 1));
             if (!damaging)
             {
                 StartCoroutine(PoisonDamage());
@@ -33,7 +32,7 @@ public class PoisonousMushroom : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (damaging)
         {
-            mushroom.playerStats.DamagePlayer(2f);
+            mushroom.player.GetComponent<PlayerStats>().DamagePlayer(2f);
             Instantiate(prefabs.poisonSplatter, gameObject.GetComponentInParent<Transform>().position,
                 transform.rotation);
             damaging = false;

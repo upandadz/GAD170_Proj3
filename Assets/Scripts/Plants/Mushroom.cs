@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Mushroom : MonoBehaviour
 {
@@ -8,11 +9,12 @@ public class Mushroom : MonoBehaviour
     private Transform dropPoint;
     public Player player;
     public bool pickedUp = false;
-    public PlayerStats playerStats;
     public MushroomValue mushroomValue;
     
     private MeshRenderer meshRenderer;
     [SerializeField] private Material rareMaterial;
+    
+    public UnityEvent OnMushroomPickedUp;
     
     void Start()
     {
@@ -42,7 +44,6 @@ public class Mushroom : MonoBehaviour
         player.holdingObject = true;
         
         gameObject.transform.SetParent(pickupPoint);
-        playerStats = GetComponentInParent<PlayerStats>();
         gameObject.transform.position = pickupPoint.position;
     }
 

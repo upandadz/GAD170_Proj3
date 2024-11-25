@@ -10,6 +10,11 @@ public class NavMesh : MonoBehaviour
     void Start()
     {
         navMeshSurface = GetComponent<NavMeshSurface>();
+        BuildNavMesh();
+    }
+
+    public void BuildNavMesh()
+    {
         navMeshSurface.BuildNavMesh();
     }
 }

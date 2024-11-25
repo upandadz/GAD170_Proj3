@@ -42,7 +42,7 @@ public class PlantPot : MonoBehaviour
         }
         else if (currentPotType == PotType.Collecter)
         {
-            Mushroom playerHeldMushroom = FindObjectOfType<Player>().transform.GetChild(0).GetChild(0).GetComponent<Mushroom>();
+            Mushroom playerHeldMushroom = FindObjectOfType<Player>().transform.GetChild(0).GetChild(0).GetComponent<Mushroom>(); // this is gross to me... but it works
             if (playerHeldMushroom != null && !HasMushroom())
             {
                 playerHeldMushroom.Drop();

@@ -23,34 +23,22 @@ public class AngryMushroom : MonoBehaviour
 
     void Update()
     {
-        if (mushroom.pickedUp && !stunned)
+        if (angered)
         {
-            timer += Time.deltaTime;
-            // if timer goes above X
-            if (timer >= 2f)
-            {
-                gameObject.transform.SetParent(null);
-                gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-                angered = true;
-            }
-            // hop off player transform
-            // begin animation
-            // angered = true
-            // start chasing player
-        }
-
-        if (!stunned && angered)
-        {
-            agent.enabled = true;
             agent.SetDestination(mushroom.player.transform.position);
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnPickup()
     {
-        if (collision.gameObject.tag == "Wall")
-        {
-            stunned = true;
-        }
+        BeginAngered();
+    }
+
+    private IEnumerable BeginAngered()
+    {
+        yield return new WaitForSeconds(2f);
+        gameObject.transform.SetParent(null);
+        gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        angered = true;
     }
 }

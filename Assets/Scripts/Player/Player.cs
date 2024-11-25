@@ -14,9 +14,8 @@ public class Player : MonoBehaviour
     }
     
     private PlayerStats playerStats;
-    [SerializeField] private Transform mushroomHoldPoint;
-    [SerializeField] private Transform pushPoint;
-    [SerializeField] private GameObject push;
+    [SerializeField] private Transform sprayPoint;
+    [SerializeField] private ParticleSystem gasParticles;
     
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
@@ -67,7 +66,7 @@ public class Player : MonoBehaviour
         {
             Movement();
             Interact();
-            Push();
+            SprayGas();
         }
     }
 
@@ -121,7 +120,7 @@ public class Player : MonoBehaviour
         }
         if (canMove)
         {
-            // different movement options
+            // different movement option
             //rigidbody.AddForce(moveDirection * playerStats.moveSpeed);
             transform.position += moveDirection * moveDistance;
         }
@@ -176,11 +175,11 @@ public class Player : MonoBehaviour
         OnSelectedPlantPotChanged?.Invoke(this, new OnSelectedPlantPotChangedEventArgs { SelectedPlantPot = selectedPlantPot });
     }
 
-    void Push()
+    void SprayGas()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(push, pushPoint.position, Quaternion.identity);
+            Instantiate(gasParticles, sprayPoint.position, gameObject.transform.rotation);
         }
     }
 }

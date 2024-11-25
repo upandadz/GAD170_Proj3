@@ -5337,8 +5337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mushroomHoldPoint: {fileID: 426007185}
-  pushPoint: {fileID: 426007185}
-  push: {fileID: 4965948293256614551, guid: c122511bba812424fbaf2ce3189d000b, type: 3}
+  sprayPoint: {fileID: 0}
   gameInput: {fileID: 66474444}
   frozen: 0
   holdingObject: 0
@@ -7363,7 +7362,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
