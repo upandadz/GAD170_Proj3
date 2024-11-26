@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a04034a508b1a04ea7bfcc24e1bbeca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   pickedUp: 0
   mushroomValue:
     mushroomValue: 0
@@ -141,7 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88607ab6fe01eb3439b9d89c4b7ab493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angered: 0
   stunned: 0
+  agent: {fileID: 0}
 --- !u!195 &6666809304488509163
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0670a0c737101ca45a5d3e377024ffe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedVisual: {fileID: 3216571258538664368}
 --- !u!1 &3216571258538664368
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +217,7 @@ GameObject:
   - component: {fileID: 2553506550423041361}
   - component: {fileID: 956023439876167589}
   m_Layer: 0
-  m_Name: AngryShroom
+  m_Name: Selected Visual
   m_TagString: Mushroom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

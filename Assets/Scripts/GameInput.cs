@@ -15,7 +15,6 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
-       // playerInputActions.Player.Spray.performed += player.SprayGas();
     }
 
     void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

@@ -7,21 +7,20 @@ public class SelectedPlantPotVisual : MonoBehaviour
 {
 
     private PlantPot plantPot;
-    private GameObject selectedVisual;
+    [SerializeField] private GameObject selectedVisual;
     void Start()
     {
         plantPot = GetComponent<PlantPot>();
-        selectedVisual = transform.GetChild(1).gameObject;
         Player.Instance.OnSelectedPlantPotChanged += PlayerActionsOnSelectedPlantPotPotChanged;
     }
 
     void PlayerActionsOnSelectedPlantPotPotChanged(object sender, Player.OnSelectedPlantPotChangedEventArgs e)
     {
-        if (e.SelectedPlantPot == plantPot)
+        if (e.SelectedPlantPot == plantPot && selectedVisual != null)
         {
             Show(); 
         }
-        else
+        else if (selectedVisual != null)
         {
             Hide();
         }

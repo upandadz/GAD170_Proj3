@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     private float rotateSpeed = 10f;
     private bool isWalking;
-    public bool frozen = false;
+    public bool frozen = true;
 
     public bool holdingObject = false;
     
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (!frozen)
+        if (frozen != false)
         {
             Movement();
             Interact();
