@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class PlantPot : MonoBehaviour
 {
-    private Vector3 spawnPos;
+    public Transform spawnPos;
     private GameObject mushroom;
     private Prefabs mushroomPrefabs;
     
@@ -24,14 +24,16 @@ public class PlantPot : MonoBehaviour
         }
     }
 
-    public void Interact()
+    public void Interact(Player player)
     {
-        // Debug.Log("Interact");
+        //picking up mushroom
         if (currentPotType == PotType.Spawner)
         {
             float raycastDistance = 2f;
             Physics.Raycast(transform.position, transform.up, out RaycastHit hit, raycastDistance);
-            if (hit.collider != null && hit.collider.tag == "Mushroom")
+            
+            //
+            if (hit.collider != null && hit.collider.CompareTag("Mushroom"))
             {
                 GameObject mushroomHit = hit.collider.gameObject;
                 if (FindObjectOfType<Player>().holdingObject == false)
@@ -40,9 +42,11 @@ public class PlantPot : MonoBehaviour
                 }
             }
         }
+        
+        //dropping off mushroom
         else if (currentPotType == PotType.Collecter)
         {
-            Mushroom playerHeldMushroom = FindObjectOfType<Player>().transform.GetChild(0).GetChild(0).GetComponent<Mushroom>(); // this is gross to me... but it works
+            Mushroom playerHeldMushroom = player.GetComponentInChildren<Mushroom>();
             if (playerHeldMushroom != null && !HasMushroom())
             {
                 playerHeldMushroom.Drop();
@@ -53,10 +57,9 @@ public class PlantPot : MonoBehaviour
     void SpawnMushroom()
     {
         mushroomPrefabs = FindObjectOfType<Prefabs>();
-        spawnPos = transform.GetChild(2).position; 
         mushroom = mushroomPrefabs.mushroomList[Random.Range(0, mushroomPrefabs.mushroomList.Count)];
         //Debug.Log(mushroom.name);
-        Instantiate(mushroom, spawnPos, Quaternion.identity);
+        Instantiate(mushroom, spawnPos.position, Quaternion.identity);
     }
 
     /// <summary>

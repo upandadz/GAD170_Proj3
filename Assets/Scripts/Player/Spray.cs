@@ -16,8 +16,10 @@ public class Spray : MonoBehaviour
     {
         if (other.tag == "Mushroom" && other.GetComponent<AngryMushroom>() != null)
         {
-            other.gameObject.GetComponent<AngryMushroom>().stunned = true;
-            Debug.Log(other.gameObject.name);
+            AngryMushroom mushroom = other.gameObject.GetComponent<AngryMushroom>();
+            mushroom.stunned = true;
+            mushroom.angered = false;
+            mushroom.TurnOffAgent();
         }
     }
 

@@ -7,6 +7,12 @@ public class Player : MonoBehaviour
 {
     public static Player Instance{ get; private set; }
     public event EventHandler<OnSelectedPlantPotChangedEventArgs> OnSelectedPlantPotChanged;
+    public event EventHandler<OnSelectedMushroomChangedEventArgs> OnSelectedMushroomChanged;
+
+    public class OnSelectedMushroomChangedEventArgs : EventArgs
+    {
+        public Mushroom SelectedMushroom;
+    }
 
     public class OnSelectedPlantPotChangedEventArgs : EventArgs
     {
@@ -32,6 +38,7 @@ public class Player : MonoBehaviour
     
     private Vector3 lastInteractDirection;
     public PlantPot selectedPlantPot;
+    public Mushroom selectedMushroom;
 
     void Awake()
     {
@@ -52,11 +59,14 @@ public class Player : MonoBehaviour
     {
         if (selectedPlantPot != null)
         {
-            selectedPlantPot.Interact();
+            selectedPlantPot.Interact(this);
         }
-        else if (holdingObject)
+        else if (selectedMushroom != null)
         {
-            
+            if (selectedMushroom.GetComponent<AngryMushroom>().stunned == true)
+            {
+                selectedMushroom.Pickup();
+            }
         }
     }
     
@@ -156,14 +166,22 @@ public class Player : MonoBehaviour
                 SetSelectedPlant(null);
             }
             // trying to pick up angered mushrooms
-            if (raycastHit.transform.TryGetComponent(out AngryMushroom mushroom))
+            if (raycastHit.transform.TryGetComponent(out Mushroom mushroom))
             {
-                
+                if (mushroom != selectedMushroom)
+                {
+                    SetSelectedMushroom(mushroom);
+                }
+            }
+            else
+            {
+                SetSelectedMushroom(null);
             }
         }
         else
         {
             SetSelectedPlant(null);
+            SetSelectedMushroom(null);
         }
         
     }
@@ -175,9 +193,16 @@ public class Player : MonoBehaviour
         OnSelectedPlantPotChanged?.Invoke(this, new OnSelectedPlantPotChangedEventArgs { SelectedPlantPot = selectedPlantPot });
     }
 
+    void SetSelectedMushroom(Mushroom mushroom)
+    {
+        this.selectedMushroom = mushroom;
+        
+        OnSelectedMushroomChanged?.Invoke(this, new OnSelectedMushroomChangedEventArgs { SelectedMushroom = mushroom });
+    }
+
     void SprayGas()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             Instantiate(gasParticles, sprayPoint.position, gameObject.transform.rotation);
         }

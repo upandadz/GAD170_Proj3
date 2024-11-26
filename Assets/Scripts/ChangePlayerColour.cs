@@ -19,6 +19,5 @@ public class ChangePlayerColour : MonoBehaviour
     public void ChangeToDefaultColour()
     {
         playerMaterial.SetColor("_Color", new Color(1, 0.58f, 0));
-        //splatterParticles.startColor = playerMaterial.GetColor("_Color");
     }
 }
