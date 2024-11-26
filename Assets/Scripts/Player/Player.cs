@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
 
-    private Rigidbody rb;
     private float playerHeight = 1.4f;
     private float playerRadius = 0.49f;
 
@@ -39,6 +38,8 @@ public class Player : MonoBehaviour
     private Vector3 lastInteractDirection;
     public PlantPot selectedPlantPot;
     public Mushroom selectedMushroom;
+    
+    public Transform pickupPoint;
 
     void Awake()
     {
@@ -51,7 +52,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        rb = GetComponent<Rigidbody>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
         {
             if (selectedMushroom.GetComponent<AngryMushroom>().stunned == true)
             {
-                selectedMushroom.Pickup();
+                selectedMushroom.Pickup(this);
             }
         }
     }

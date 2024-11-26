@@ -26,7 +26,7 @@ public class PlantPot : MonoBehaviour
 
     public void Interact(Player player)
     {
-        //picking up mushroom
+        // picking up mushroom off spawner
         if (currentPotType == PotType.Spawner)
         {
             float raycastDistance = 2f;
@@ -38,18 +38,19 @@ public class PlantPot : MonoBehaviour
                 GameObject mushroomHit = hit.collider.gameObject;
                 if (FindObjectOfType<Player>().holdingObject == false)
                 {
-                    mushroomHit.GetComponent<Mushroom>().Pickup();
+                    mushroomHit.GetComponent<Mushroom>().Pickup(FindObjectOfType<Player>());
                 }
             }
         }
         
-        //dropping off mushroom
+        //dropping off mushroom at collecter
         else if (currentPotType == PotType.Collecter)
         {
             Mushroom playerHeldMushroom = player.GetComponentInChildren<Mushroom>();
             if (playerHeldMushroom != null && !HasMushroom())
             {
-                playerHeldMushroom.Drop();
+                Player playerHoldingMushroom = playerHeldMushroom.GetComponentInParent<Player>();
+                playerHeldMushroom.Drop(playerHoldingMushroom);
             }
         }
     }

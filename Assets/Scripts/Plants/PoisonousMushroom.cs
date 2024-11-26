@@ -32,9 +32,8 @@ public class PoisonousMushroom : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (damaging)
         {
-            mushroom.player.GetComponent<PlayerStats>().DamagePlayer(2f);
-            Instantiate(prefabs.poisonSplatter, gameObject.GetComponentInParent<Transform>().position,
-                transform.rotation);
+            GetComponentInParent<PlayerStats>().DamagePlayer(2f);
+            Instantiate(prefabs.poisonSplatter, gameObject.GetComponentInParent<Transform>().position, transform.rotation);
             damaging = false;
         }
     }

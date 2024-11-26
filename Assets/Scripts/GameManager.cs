@@ -30,4 +30,10 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void StartGame()
+    {
+        // begin timer
+        // spawn obstacles
+    }
 }

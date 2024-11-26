@@ -7,7 +7,6 @@ public class Mushroom : MonoBehaviour
 {
     private Transform pickupPoint;
     private Transform dropPoint;
-    public Player player;
     public bool pickedUp = false;
     public MushroomValue mushroomValue;
     
@@ -33,23 +32,22 @@ public class Mushroom : MonoBehaviour
         {
             meshRenderer.material = rareMaterial;
         }
-        pickupPoint = GameObject.Find("PickupPoint").transform; // wouldn't work for multiplayer obviously but here we are
-        player = pickupPoint.parent.GetComponent<Player>();
     }
-    public void Pickup()
+    public void Pickup(Player player)
     {
         pickedUp = true;
         player.holdingObject = true;
-        
+        pickupPoint = player.pickupPoint;
         gameObject.transform.SetParent(pickupPoint);
         gameObject.transform.position = pickupPoint.position;
-        if (GetComponent<AngryMushroom>() != null);
+        TryGetComponent(out AngryMushroom angryMushroom);
+        if (angryMushroom != null)
         {
-            GetComponent<AngryMushroom>().OnPickup();
+            angryMushroom.OnPickup();
         }
     }
 
-    public void Drop()
+    public void Drop(Player player)
     {
         pickedUp = false;
         player.holdingObject = false;

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AngryMushroom : MonoBehaviour
 {
-    private Mushroom mushroom;
+    private Transform target;
 
     public bool angered = false;
     
@@ -16,15 +16,15 @@ public class AngryMushroom : MonoBehaviour
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        mushroom = GetComponent<Mushroom>();
     }
 
     void Update()
     {
         if (angered && !stunned)
         {
-            agent.SetDestination(mushroom.player.transform.position); // chase player
+            agent.SetDestination(target.position); // chase player
             gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z); // having issue where mushroom is floating, this is a bandaid fix
         }
     }
@@ -39,12 +39,12 @@ public class AngryMushroom : MonoBehaviour
 
     private IEnumerator BeginAngered()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);;
+        GetComponentInParent<Player>().holdingObject = false;
         gameObject.transform.SetParent(null);
         gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         angered = true;
         agent.enabled = true;
-        mushroom.player.holdingObject = false;
     }
 
     public void TurnOffAgent()
