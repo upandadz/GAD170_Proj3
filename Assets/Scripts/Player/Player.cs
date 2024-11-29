@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        if (frozen != false)
+        if (frozen == false)
         {
             Movement();
             Interact();

@@ -12,11 +12,6 @@ public class Spawner : MonoBehaviour
 
     private int howManyPots = 4;
     private int howManyThorns = 4;
-    void Awake()
-    {
-        Spawn();
-    }
-
     public void Spawn()
     {
         usedSpawnPoints.Clear();

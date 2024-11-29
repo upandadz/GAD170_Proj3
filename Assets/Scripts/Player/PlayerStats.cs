@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerStats : MonoBehaviour
     
     
     private GameManager gameManager;
+    
+    public UnityEvent OnDeath;
 
     void Start()
     {
@@ -24,7 +27,7 @@ public class PlayerStats : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            gameManager.PlayerDied();
+            OnDeath.Invoke();
         }
     }
 }

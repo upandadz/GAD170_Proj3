@@ -14,6 +14,8 @@ public class ChangePlayerColour : MonoBehaviour
         float g = Random.Range(0f, 1f);
         float b = Random.Range(0f, 1f);
         playerMaterial.SetColor("_Color", new Color(r, g, b));
+        
+        // change the splatter particle colour to match player colour
     }
 
     public void ChangeToDefaultColour()

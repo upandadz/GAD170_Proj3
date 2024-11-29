@@ -21,4 +21,11 @@ public class UIManager : MonoBehaviour
     {
         timerText.text = gameManager.roundTime.ToString();
     }
+
+    public void DisableUI()
+    {
+        startGameUI.SetActive(false);
+        endRoundUI.SetActive(false);
+        endGameUI.SetActive(false);
+    }
 }

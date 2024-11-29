@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Player player;
-    [SerializeField] Transform roundStartPoint;
+    [SerializeField] private Player player;
+    [SerializeField] private Transform roundStartPoint;
+    [SerializeField] private NavMesh navMesh;
+    [SerializeField] private Spawner spawner;
+    [SerializeField] private UIManager uiManager;
     private PlayerStats playerStats;
 
     public int roundNumber = 1;
     public float roundTime = 30f;
     private bool roundStarted = false;
     public int funds;
+    public int totalFunds;
     
-    public PlantPot[] allPlantPotsFound;
+    private PlantPot[] allPlantPotsFound;
+
+    public UnityEvent OnRoundStart;
 
     void Start()
     {
@@ -22,9 +29,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (roundStarted)
+        if (roundStarted == true)
         {
             roundTime -= Time.deltaTime;
+            if (roundTime <= 0f)
+            {
+                RoundOver();
+            }
         }
     }
     public void PlayerDied()
@@ -35,6 +46,8 @@ public class GameManager : MonoBehaviour
 
     public void RoundOver()
     {
+        roundStarted = false;
+        
         // reset start position
         player.transform.position = roundStartPoint.position;
         
@@ -54,7 +67,10 @@ public class GameManager : MonoBehaviour
                 {
                     float rayDistance = 2f;
                     Physics.Raycast(plantPot.transform.position, player.transform.up, out RaycastHit hit, rayDistance);
-                    Destroy(hit.collider.gameObject); // destroys the mushroom if it has one
+                    if (hit.collider != null)
+                    {
+                        Destroy(hit.collider.gameObject); // destroys the mushroom if it has one
+                    } 
                 }
                 GameObject actualPot = plantPot.gameObject;
                 Destroy(actualPot);
@@ -66,7 +82,11 @@ public class GameManager : MonoBehaviour
         {
             if (plantPot.currentPotType == PlantPot.PotType.Collecter)
             {
-                funds += plantPot.GetComponentInChildren<Mushroom>().mushroomValue.mushroomValue; // should probably do some renaming here
+                if (plantPot.GetComponentInChildren<Mushroom>() != null)
+                {
+                    funds += plantPot.GetComponentInChildren<Mushroom>().mushroomValue.mushroomValue; // should probably do some renaming here
+                    totalFunds += funds;
+                }
             }
         }
         
@@ -78,28 +98,27 @@ public class GameManager : MonoBehaviour
         }
         
         // show available funds
+        
+        
         // show upgrade stats ui - once stats are upgraded click button for round start
     }
 
     public void RoundStart()
     {
-        // spawn in pots & thorns
-        // build navmesh
+        OnRoundStart.Invoke(); // spawns objects then builds navmesh
+        
         // begin timer
+        roundStarted = true;
+        
         // unfreeze player
+        player.frozen = false;
     }
 
     public void GameOver()
     {
         // freeze player
+        player.frozen = true;
+        
         // display TOTAL collected funds
-    }
-
-    public void StartGame()
-    {
-        // begin timer
-        // spawn obstacles
-        // disable UI
-        // unfreeze player
     }
 }

@@ -18,7 +18,7 @@ public class SelectedMushroomVisual : MonoBehaviour
         {
             Show(); 
         }
-        else
+        else if (selectedVisual != null)
         {
             Hide();
         }
