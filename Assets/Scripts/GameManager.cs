@@ -9,14 +9,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform roundStartPoint;
     [SerializeField] private NavMesh navMesh;
     [SerializeField] private Spawner spawner;
-    [SerializeField] private UIManager uiManager;
+    private UIManager uiManager;
     private PlayerStats playerStats;
 
     public int roundNumber = 1;
     public float roundTime = 30f;
     private bool roundStarted = false;
+    
     public int funds;
     public int totalFunds;
+    public int amountSpentOnBills;
     
     private PlantPot[] allPlantPotsFound;
 
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playerStats = player.GetComponent<PlayerStats>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         player.frozen = true;
-        // show you died UI
+        roundStarted = false;
     }
 
     public void RoundOver()
@@ -84,23 +87,29 @@ public class GameManager : MonoBehaviour
             {
                 if (plantPot.GetComponentInChildren<Mushroom>() != null)
                 {
-                    funds += plantPot.GetComponentInChildren<Mushroom>().mushroomValue.mushroomValue; // should probably do some renaming here
+                    Mushroom mushroom = plantPot.GetComponentInChildren<Mushroom>();
+                    funds += mushroom.mushroomValue.mushroomValue; // should probably do some renaming here
                     totalFunds += funds;
+                    Destroy(mushroom.gameObject);
                 }
             }
         }
         
         // take out $$ for medical bill
+        amountSpentOnBills = 0;
         while (playerStats.health < playerStats.maxHealth)
         {
             playerStats.health++;
             funds--;
+            amountSpentOnBills++;
         }
+        uiManager.UpdateUIText(uiManager.medicalBillsText, "You spent $", amountSpentOnBills, " on medical bills");
         
         // show available funds
-        
+        uiManager.UpdateUIText(uiManager.fundsText, "Funds: ", funds);
         
         // show upgrade stats ui - once stats are upgraded click button for round start
+        uiManager.endRoundUI.SetActive(true);
     }
 
     public void RoundStart()
