@@ -10,12 +10,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject startGameUI;
     public GameObject endRoundUI;
     [SerializeField] private GameObject endGameUI;
-  //  [SerializeField] private GameObject statsUI;
     [SerializeField] private TMP_Text timerText;
     
     public TMP_Text speedLvlText;
     public TMP_Text healthLvlText;
     public TMP_Text fragilityLvlText;
+    
     public TMP_Text medicalBillsText;
     public TMP_Text fundsText;
 

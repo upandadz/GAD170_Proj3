@@ -8295,6 +8295,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   fragility: 100
+  healthBar: {fileID: 1131127951}
   OnDeath:
     m_PersistentCalls:
       m_Calls:

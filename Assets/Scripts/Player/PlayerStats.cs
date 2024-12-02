@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour
     
     private GameManager gameManager;
     private UIManager uiManager;
+    [SerializeField] private HealthBar healthBar;
     
     public UnityEvent OnDeath;
 
@@ -41,6 +42,8 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    
+    // could probably turn these into events instead of hard coding everything
     public void LevelSpeed()
     {
         if (gameManager.funds >= speedLevelCost && speedLevel < maxLevel)
@@ -49,6 +52,7 @@ public class PlayerStats : MonoBehaviour
             speedLevel += 1;
             uiManager.UpdateUIText(uiManager.speedLvlText, "lvl: ", speedLevel);
             gameManager.funds -= speedLevelCost;
+            uiManager.UpdateUIText(uiManager.fundsText, "Funds: ", gameManager.funds);
             speedLevelCost += levelCostIncrease;
         }
     }
@@ -61,7 +65,9 @@ public class PlayerStats : MonoBehaviour
             healthLevel += 1;
             uiManager.UpdateUIText(uiManager.healthLvlText, "lvl: ", healthLevel);
             health = maxHealth;
+            healthBar.UpdateHealthBar(maxHealth);
             gameManager.funds -= healthLevelCost;
+            uiManager.UpdateUIText(uiManager.fundsText, "Funds: ", gameManager.funds);
             healthLevelCost += levelCostIncrease;
         }
     }
@@ -74,6 +80,7 @@ public class PlayerStats : MonoBehaviour
             fragilityLevel += 1;
             uiManager.UpdateUIText(uiManager.fragilityLvlText, "lvl: ", fragilityLevel);
             gameManager.funds -= fragilityLevelCost;
+            uiManager.UpdateUIText(uiManager.fundsText, "Funds: ", gameManager.funds);
             fragilityLevelCost += levelCostIncrease;
         }
     }
