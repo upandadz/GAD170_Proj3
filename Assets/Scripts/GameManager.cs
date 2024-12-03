@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public float roundTime = 30f;
     private bool roundStarted = false;
     
-    public int funds;
+    public int funds; // If I was to redo this I would put funds in its own script
     public int totalFunds;
     public int amountSpentOnBills;
     
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         roundStarted = false;
     }
 
-    public void RoundOver()
+    private void RoundOver()
     {
         roundStarted = false;
         

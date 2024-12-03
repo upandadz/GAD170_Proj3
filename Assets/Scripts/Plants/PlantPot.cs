@@ -5,6 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
+/// <summary>
+/// Spawner type spawns mushrooms, collecter type is to collect mushrooms
+/// </summary>
 public class PlantPot : MonoBehaviour
 {
     public Transform spawnPos;
@@ -43,7 +47,7 @@ public class PlantPot : MonoBehaviour
             }
         }
         
-        //dropping off mushroom at collecter
+        // dropping off mushroom at collecter
         else if (currentPotType == PotType.Collecter)
         {
             Mushroom playerHeldMushroom = player.GetComponentInChildren<Mushroom>();

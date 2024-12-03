@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Mushroom script attatched to all types of mushrooms
+/// </summary>
 public class Mushroom : MonoBehaviour
 {
     private Transform pickupPoint;
@@ -41,9 +44,17 @@ public class Mushroom : MonoBehaviour
         gameObject.transform.SetParent(pickupPoint);
         gameObject.transform.position = pickupPoint.position;
         TryGetComponent(out AngryMushroom angryMushroom);
+        TryGetComponent(out MysticalMushroom mysticalMushroom);
         if (angryMushroom != null)
         {
             angryMushroom.OnPickup();
+        }
+        else if (mysticalMushroom != null)
+        {
+            for (int i = 0; i < player.playerVisuals.Count; i++)
+            {
+                mysticalMushroom.OnPickup(player.playerVisuals[i]);
+            }
         }
     }
 
@@ -57,6 +68,13 @@ public class Mushroom : MonoBehaviour
         if (GetComponent<PoisonousMushroom>() != null)
         {
             GetComponent<PoisonousMushroom>().damaging = false;
+        }
+        else if (GetComponent<MysticalMushroom>() != null)
+        {
+            for (int i = 0; i < player.playerVisuals.Count; i++)
+            {
+                GetComponent<MysticalMushroom>().OnDrop(player.playerVisuals[i]);
+            }
         }
     }
 }

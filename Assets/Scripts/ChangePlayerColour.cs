@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+/// <summary>
+/// Changes colour of the player in the start menu
+/// </summary>
 public class ChangePlayerColour : MonoBehaviour
 {
     [SerializeField] private Material playerMaterial;

@@ -11,13 +11,16 @@ public class AngryMushroom : MonoBehaviour
     
     public bool stunned = false;
     
-    private Material originalMaterial;
+    [SerializeField] private Material originalMaterial;
+    [SerializeField] private Material angeredMaterial;
+    private MeshRenderer meshRenderer;
     public NavMeshAgent agent;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     void Update()
@@ -29,6 +32,9 @@ public class AngryMushroom : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts a coroutine, the mushroom waits 2 seconds then starts chasing the player
+    /// </summary>
     public void OnPickup()
     {
         if (!stunned)
@@ -44,11 +50,13 @@ public class AngryMushroom : MonoBehaviour
         gameObject.transform.SetParent(null);
         gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         angered = true;
+        meshRenderer.material = angeredMaterial;
         agent.enabled = true;
     }
 
-    public void TurnOffAgent()
+    public void CalmDown()
     {
         agent.enabled = false;
+        meshRenderer.material = originalMaterial;
     }
 }

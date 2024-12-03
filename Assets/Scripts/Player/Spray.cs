@@ -19,7 +19,7 @@ public class Spray : MonoBehaviour
             AngryMushroom mushroom = other.gameObject.GetComponent<AngryMushroom>();
             mushroom.stunned = true;
             mushroom.angered = false;
-            mushroom.TurnOffAgent();
+            mushroom.CalmDown();
         }
     }
 

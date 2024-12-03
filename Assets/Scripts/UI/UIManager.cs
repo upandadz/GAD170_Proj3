@@ -46,4 +46,12 @@ public class UIManager : MonoBehaviour
     {
         textToUpdate.text = newText + newInt + optionalText;
     }
+
+    public void PlayerDied()
+    {
+        // make game over text come down & bounce
+        // change what happened text & total funds text
+        // make what happened text come flying in
+        // make total funds text come in from the other side
+    }
 }
