@@ -18,7 +18,7 @@ public class Thorns : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerStats>().DamagePlayer(damage);
-            Instantiate(prefabs.splatter, other.gameObject.transform.position, Quaternion.identity);
+            Instantiate(prefabs.particleList[0], other.gameObject.transform.position, Quaternion.identity);
         }
     }
 }

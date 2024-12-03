@@ -33,7 +33,7 @@ public class PoisonousMushroom : MonoBehaviour
         if (damaging)
         {
             GetComponentInParent<PlayerStats>().DamagePlayer(2f);
-            Instantiate(prefabs.poisonSplatter, gameObject.GetComponentInParent<Transform>().position, transform.rotation);
+            Instantiate(prefabs.particleList[1], gameObject.GetComponentInParent<Transform>().position, transform.rotation);
             damaging = false;
         }
     }

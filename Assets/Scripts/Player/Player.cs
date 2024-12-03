@@ -20,20 +20,23 @@ public class Player : MonoBehaviour
     }
     
     private PlayerStats playerStats;
+    private Prefabs prefabs;
     [SerializeField] private Transform sprayPoint;
-    [SerializeField] private ParticleSystem gasParticles;
+    [SerializeField] private Transform jetpackFlamePoint;
     
     [Header("Game Input")]
     [SerializeField] GameInput gameInput;
 
     private float playerHeight = 1.4f;
     private float playerRadius = 0.49f;
+    private Rigidbody rigidBody;
 
     private float rotateSpeed = 10f;
     private bool isWalking;
     public bool frozen = true;
 
     public bool holdingObject = false;
+    public bool jetpackUnlocked = false;
     
     private Vector3 lastInteractDirection;
     public PlantPot selectedPlantPot;
@@ -52,6 +55,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        rigidBody = GetComponent<Rigidbody>();
+        prefabs = FindObjectOfType<Prefabs>();
         gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
@@ -77,6 +82,10 @@ public class Player : MonoBehaviour
             Movement();
             Interact();
             SprayGas();
+            if (jetpackUnlocked)
+            {
+                Jetpack();
+            }
         }
     }
 
@@ -204,7 +213,17 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(gasParticles, sprayPoint.position, gameObject.transform.rotation);
+            Instantiate(prefabs.particleList[2], sprayPoint.position, gameObject.transform.rotation);
+        }
+    }
+
+    void Jetpack()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            // if has enough fuel, increase vector 3 velocity on the Y
+            rigidBody.velocity = new Vector3(0, 5, 0);
+            Instantiate(prefabs.particleList[3], jetpackFlamePoint.position, Quaternion.Euler(90, 0, 0));
         }
     }
 }

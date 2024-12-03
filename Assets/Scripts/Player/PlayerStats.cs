@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerStats : MonoBehaviour
 {
     public float moveSpeed = 7f;
-    public float health = 100f;
+    public float health = 100f; // in the future i will make health its own script
     public float maxHealth = 100f;
     public float fragility = 100f;
 
