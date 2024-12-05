@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PoisonousMushroom : MonoBehaviour
 {
-    public Material playerMaterial;
+    // public Material playerMaterial;
 
+    private AudioManager audioManager;
     public bool damaging = false;
     private Mushroom mushroom;
     private Prefabs prefabs;
@@ -14,6 +15,7 @@ public class PoisonousMushroom : MonoBehaviour
     {
         prefabs = FindObjectOfType<Prefabs>();
         mushroom = GetComponent<Mushroom>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     void Update()
     {
@@ -35,6 +37,7 @@ public class PoisonousMushroom : MonoBehaviour
             GetComponentInParent<PlayerStats>().DamagePlayer(2f);
             Instantiate(prefabs.particleList[1], gameObject.GetComponentInParent<Transform>().position, transform.rotation);
             damaging = false;
+            audioManager.PlaySoundOnce(GetComponentInParent<AudioSource>(), audioManager.audioClips[2]);
         }
     }
 }

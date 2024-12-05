@@ -8,6 +8,7 @@ public class Jetpack : MonoBehaviour
     private Prefabs prefabs;
     private Rigidbody rigidBody;
     private GameManager gameManager;
+    private AudioManager audioManager;
     private Player player;
     
     public bool jetpackUnlocked = false;
@@ -26,6 +27,7 @@ public class Jetpack : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         prefabs = FindObjectOfType<Prefabs>();
         gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -56,15 +58,17 @@ public class Jetpack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             flying = true;
+            audioManager.PlaySoundLoop(GetComponent<AudioSource>(), audioManager.audioClips[1]);
         }
-        else if (Input.GetKey(KeyCode.Space) && fuel > 0)
+        else if (Input.GetKey(KeyCode.Space) && fuel > 0 && flying)
         {
             rigidBody.velocity = new Vector3(0, 5, 0);
             Instantiate(prefabs.particleList[3], jetpackFlamePoint.position, Quaternion.Euler(90, 0, 0));
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else if (Input.GetKeyUp(KeyCode.Space) || fuel <= 0)
         {
             flying = false;
+            audioManager.StopSound(GetComponent<AudioSource>());
         }
     }
 

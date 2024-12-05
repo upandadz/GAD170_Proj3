@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// spawns pots and thorns
+/// </summary>
 public class Spawner : MonoBehaviour
 {
     public Prefabs prefabs;
