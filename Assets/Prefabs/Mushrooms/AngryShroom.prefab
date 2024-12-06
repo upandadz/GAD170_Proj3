@@ -143,6 +143,7 @@ MonoBehaviour:
   angered: 0
   stunned: 0
   originalMaterial: {fileID: 2100000, guid: 6bdd6a0a9c816ef47aa298f3939a988b, type: 2}
+  rareMaterial: {fileID: 2100000, guid: 706dfccd73e7ba64e923c49cacec6a23, type: 2}
   angeredMaterial: {fileID: 2100000, guid: bce1275b165573f46965efa11f13b5fb, type: 2}
   agent: {fileID: 0}
 --- !u!195 &6666809304488509163

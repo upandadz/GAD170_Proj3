@@ -12,12 +12,14 @@ public class Mushroom : MonoBehaviour
     private Transform dropPoint;
     public bool pickedUp = false;
     public MushroomValue mushroomValue;
+    private AudioManager audioManager;
     
     private MeshRenderer meshRenderer;
     [SerializeField] private Material rareMaterial;
     
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         if (GetComponent<PoisonousMushroom>() != null)
         {
             mushroomValue = new MushroomValue(60);
@@ -43,6 +45,7 @@ public class Mushroom : MonoBehaviour
         pickupPoint = player.pickupPoint;
         gameObject.transform.SetParent(pickupPoint);
         gameObject.transform.position = pickupPoint.position;
+        
         TryGetComponent(out AngryMushroom angryMushroom);
         TryGetComponent(out MysticalMushroom mysticalMushroom);
         if (angryMushroom != null)
@@ -54,6 +57,7 @@ public class Mushroom : MonoBehaviour
             for (int i = 0; i < player.playerVisuals.Count; i++)
             {
                 mysticalMushroom.OnPickup(player.playerVisuals[i]);
+                audioManager.PlaySoundLoop(player.GetComponent<AudioSource>(), audioManager.audioClips[3]);
             }
         }
     }
@@ -74,6 +78,7 @@ public class Mushroom : MonoBehaviour
             for (int i = 0; i < player.playerVisuals.Count; i++)
             {
                 GetComponent<MysticalMushroom>().OnDrop(player.playerVisuals[i]);
+                audioManager.StopSound(player.GetComponent<AudioSource>());
             }
         }
     }

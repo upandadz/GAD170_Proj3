@@ -637,7 +637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &92398265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4679,6 +4679,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4d3d4dfb615658647850520c6ce8d865, type: 3}
   - {fileID: 8300000, guid: cbc6949c6859b48418bb2241472690b3, type: 3}
   - {fileID: 8300000, guid: f6f8c436b208c9f48b8cc35bda7e152c, type: 3}
+  - {fileID: 8300000, guid: 94a617b6dbd82f24b81e7173566e04eb, type: 3}
 --- !u!4 &681921384
 Transform:
   m_ObjectHideFlags: 0
@@ -7155,7 +7156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1127674022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9236,6 +9237,7 @@ MonoBehaviour:
   fuelSlider: {fileID: 808140063}
   jetpackFlamePoint: {fileID: 143200323}
   jetpack: {fileID: 1807790855}
+  jetpackAudioSource: {fileID: 1807790859}
 --- !u!82 &1299791297
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12755,6 +12757,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5930928358168491518, guid: 871cd0fc5cf066c4cb00e86482b1bf7b, type: 3}
   m_PrefabInstance: {fileID: 1772173668}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1807790859 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 802960942392267500, guid: 871cd0fc5cf066c4cb00e86482b1bf7b, type: 3}
+  m_PrefabInstance: {fileID: 1772173668}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1816003159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8389332235746354121, guid: 05d76608b4a10504c8a7d60edd891235, type: 3}
@@ -13816,7 +13823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startGameUI: {fileID: 92398264}
   endRoundUI: {fileID: 1990225468}
-  endGameUI: {fileID: 6727896}
+  gameOverUI: {fileID: 0}
   timerText: {fileID: 873837472}
   speedLvlText: {fileID: 1759522853}
   healthLvlText: {fileID: 1151598808}
@@ -15126,6 +15133,7 @@ MonoBehaviour:
   funds: 0
   totalFunds: 0
   amountSpentOnBills: 0
+  mushroomsCollected: []
   OnRoundStart:
     m_PersistentCalls:
       m_Calls:

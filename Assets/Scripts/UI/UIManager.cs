@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
     private GameManager gameManager;
     [SerializeField] private GameObject startGameUI;
     public GameObject endRoundUI;
-    [SerializeField] private GameObject endGameUI;
+    [SerializeField] private GameObject gameOverUI;
     [SerializeField] private TMP_Text timerText;
     
     public TMP_Text speedLvlText;
@@ -32,7 +34,7 @@ public class UIManager : MonoBehaviour
     {
         startGameUI.SetActive(false);
         endRoundUI.SetActive(false);
-        endGameUI.SetActive(false);
+        gameOverUI.SetActive(false);
     }
     
     /// <summary>
@@ -49,9 +51,15 @@ public class UIManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        // make the panel expand from the centre
+        
         // make game over text come down & bounce
+        
         // change what happened text & total funds text
+        
         // make what happened text come flying in
+        
         // make total funds text come in from the other side
+        
     }
 }

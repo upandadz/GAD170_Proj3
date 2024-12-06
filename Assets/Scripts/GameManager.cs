@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int amountSpentOnBills;
     
     private PlantPot[] allPlantPotsFound;
+    public List<Mushroom> mushroomsCollected = new List<Mushroom>();
 
     public UnityEvent OnRoundStart;
 
@@ -50,6 +51,8 @@ public class GameManager : MonoBehaviour
     private void RoundOver()
     {
         roundStarted = false;
+
+        roundNumber++;
         
         // reset start position
         player.transform.position = roundStartPoint.position;
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour
                 if (plantPot.GetComponentInChildren<Mushroom>() != null)
                 {
                     Mushroom mushroom = plantPot.GetComponentInChildren<Mushroom>();
+                    mushroomsCollected.Add(mushroom);
                     funds += mushroom.mushroomValue.mushroomValue; // should probably do some renaming here
                     totalFunds += funds;
                     Destroy(mushroom.gameObject);

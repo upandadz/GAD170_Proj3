@@ -12,8 +12,10 @@ public class AngryMushroom : MonoBehaviour
     public bool stunned = false;
     
     [SerializeField] private Material originalMaterial;
+    [SerializeField] private Material rareMaterial;
     [SerializeField] private Material angeredMaterial;
     private MeshRenderer meshRenderer;
+    private Mushroom mushroom;
     public NavMeshAgent agent;
 
     void Start()
@@ -21,6 +23,7 @@ public class AngryMushroom : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponent<MeshRenderer>();
+        mushroom = GetComponent<Mushroom>();
     }
 
     void Update()
@@ -46,6 +49,10 @@ public class AngryMushroom : MonoBehaviour
     private IEnumerator BeginAngered()
     {
         yield return new WaitForSeconds(2f);;
+        if (GetComponentInParent<Player>() == null)
+        {
+            yield break;
+        }
         GetComponentInParent<Player>().holdingObject = false;
         gameObject.transform.SetParent(null);
         gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
@@ -57,6 +64,13 @@ public class AngryMushroom : MonoBehaviour
     public void CalmDown()
     {
         agent.enabled = false;
-        meshRenderer.material = originalMaterial;
+        if (mushroom.mushroomValue.isRare)
+        {
+            meshRenderer.material = rareMaterial;
+        }
+        else
+        {
+            meshRenderer.material = originalMaterial;
+        }
     }
 }

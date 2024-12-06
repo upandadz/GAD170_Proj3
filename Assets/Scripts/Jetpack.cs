@@ -16,10 +16,12 @@ public class Jetpack : MonoBehaviour
     
     public float fuel = 3f;
     public float maxFuel = 3f;
+    private float jetpackVelocity = 5f;
 
     [SerializeField] private GameObject fuelSlider;
     [SerializeField] private Transform jetpackFlamePoint;
     [SerializeField] private GameObject jetpack;
+    [SerializeField] private AudioSource jetpackAudioSource;
 
     private void Start()
     {
@@ -58,17 +60,17 @@ public class Jetpack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             flying = true;
-            audioManager.PlaySoundLoop(GetComponent<AudioSource>(), audioManager.audioClips[1]);
+            audioManager.PlaySoundLoop(jetpackAudioSource, audioManager.audioClips[1]);
         }
         else if (Input.GetKey(KeyCode.Space) && fuel > 0 && flying)
         {
-            rigidBody.velocity = new Vector3(0, 5, 0);
-            Instantiate(prefabs.particleList[3], jetpackFlamePoint.position, Quaternion.Euler(90, 0, 0));
+            rigidBody.velocity = new Vector3(0, jetpackVelocity, 0);
+            Instantiate(prefabs.particleList[3], jetpackFlamePoint.position, Quaternion.Euler(90, 0, 0)); // this magic number makes sure the flames spawn pointing down
         }
         else if (Input.GetKeyUp(KeyCode.Space) || fuel <= 0)
         {
             flying = false;
-            audioManager.StopSound(GetComponent<AudioSource>());
+            audioManager.StopSound(jetpackAudioSource);
         }
     }
 
@@ -80,6 +82,9 @@ public class Jetpack : MonoBehaviour
             jetpack.SetActive(true);
             jetpackUnlocked = true;
             gameManager.funds -= jetpackCost;
+            
+            // update funds ui
+            
             // show the fuel slider
             fuelSlider.SetActive(true);
         }
