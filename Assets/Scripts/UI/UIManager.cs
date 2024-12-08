@@ -21,6 +21,12 @@ public class UIManager : MonoBehaviour
     public TMP_Text medicalBillsText;
     public TMP_Text fundsText;
 
+    [Header("GameOver UI Elements")] 
+    [SerializeField] private GameObject gameOverText;
+    [SerializeField] private GameObject panel;
+    [SerializeField] private TMP_Text whatHappenedText;
+    [SerializeField] private TMP_Text totalFundsText;
+    [SerializeField] private GameObject continueButton;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -51,15 +57,40 @@ public class UIManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        // make the panel expand from the centre
-        
-        // make game over text come down & bounce
-        
         // change what happened text & total funds text
+        UpdateUIText(whatHappenedText, "You died! You lasted ", gameManager.roundNumber, " rounds!");
+        UpdateUIText(totalFundsText, "Total funds collected: ", gameManager.totalFunds);
+        
+        MoveGameOverUI();
+    }
+
+    public void GameWon()
+    {
+        whatHappenedText.text = "Game Finished!";
+        UpdateUIText(totalFundsText, "Total funds collected: ", gameManager.totalFunds);
+        continueButton.SetActive(true);
+        MoveGameOverUI();
+    }
+
+    /// <summary>
+    /// DOTweens that animate the game over UI
+    /// </summary>
+    private void MoveGameOverUI()
+    {
+        // make the panel expand from the centre
+        panel.transform.localScale = new Vector3(0, 0, 0);
+        panel.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+            
+        // make game over text come down & bounce
+        gameOverText.transform.localPosition = new Vector3(0, 1000, 0);
+        gameOverText.transform.DOLocalMove(new Vector3(0, 323, 0), 0.5f, true);
         
         // make what happened text come flying in
-        
+        whatHappenedText.transform.localPosition = new Vector3(-1300, 161, 0);
+        whatHappenedText.transform.DOLocalMove(new Vector3(0, 161, 0), 0.5f, true);
+
         // make total funds text come in from the other side
-        
+        totalFundsText.transform.localPosition = new Vector3(1300, -116, 0);
+        totalFundsText.transform.DOLocalMove(new Vector3(0, -116, 0), 0.5f, true);
     }
 }

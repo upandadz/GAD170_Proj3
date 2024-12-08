@@ -18,6 +18,8 @@ public class AngryMushroom : MonoBehaviour
     private Mushroom mushroom;
     public NavMeshAgent agent;
 
+    private int collisionDamage = 15;
+
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -31,7 +33,7 @@ public class AngryMushroom : MonoBehaviour
         if (angered && !stunned)
         {
             agent.SetDestination(target.position); // chase player
-            gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z); // having issue where mushroom is floating, this is a bandaid fix
+            gameObject.transform.position = new Vector3(transform.position.x, 0, transform.position.z); // having issue where the mushroom is floating, this is a bandaid fix
         }
     }
 
@@ -71,6 +73,15 @@ public class AngryMushroom : MonoBehaviour
         else
         {
             meshRenderer.material = originalMaterial;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && angered)
+        {
+            collision.gameObject.GetComponent<PlayerStats>().DamagePlayer(collisionDamage);
+            
         }
     }
 }
