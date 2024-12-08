@@ -14,9 +14,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private TMP_Text timerText;
     
+    public GameObject jetpackButton;
+    
     public TMP_Text speedLvlText;
     public TMP_Text healthLvlText;
     public TMP_Text fragilityLvlText;
+    public TMP_Text potsPrice;
     
     public TMP_Text medicalBillsText;
     public TMP_Text fundsText;

@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        spawner.howManyThorns++;
         
         // take out $$ for medical bill
         amountSpentOnBills = 0;
@@ -138,15 +140,7 @@ public class GameManager : MonoBehaviour
         // unfreeze player
         player.frozen = false;
     }
-
-    public void GameOver()
-    {
-        // freeze player
-        player.frozen = true;
-        
-        // display TOTAL collected funds
-    }
-
+    
     public void RestartGame()
     {
         // load scene

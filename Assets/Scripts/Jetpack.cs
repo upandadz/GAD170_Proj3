@@ -10,6 +10,7 @@ public class Jetpack : MonoBehaviour
     private GameManager gameManager;
     private AudioManager audioManager;
     private Player player;
+    private UIManager uiManager;
     
     public bool jetpackUnlocked = false;
     private bool flying = false;
@@ -30,6 +31,7 @@ public class Jetpack : MonoBehaviour
         prefabs = FindObjectOfType<Prefabs>();
         gameManager = FindObjectOfType<GameManager>();
         audioManager = FindObjectOfType<AudioManager>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -84,9 +86,12 @@ public class Jetpack : MonoBehaviour
             gameManager.funds -= jetpackCost;
             
             // update funds ui
+            uiManager.UpdateUIText(uiManager.fundsText, "Funds: ", gameManager.funds);
             
             // show the fuel slider
             fuelSlider.SetActive(true);
+            
+            uiManager.jetpackButton.SetActive(false);
         }
     }
 }
